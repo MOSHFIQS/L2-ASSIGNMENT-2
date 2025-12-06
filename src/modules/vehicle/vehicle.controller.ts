@@ -51,7 +51,7 @@ const updateVehicleById = async (req: Request, res: Response) => {
           const result = await vehicleServices.updateVehicleById(req.body, req.params.vehicleId!)
           res.status(201).json({
                success: true,
-               message: "Vehicles retrieved successfully",
+               message: "Vehicles updated successfully",
                data: result.rows[0]
           })
      } catch (err: any) {
@@ -64,7 +64,7 @@ const updateVehicleById = async (req: Request, res: Response) => {
 const deleteVehicleById = async (req: Request, res: Response) => {
      try {
           await vehicleServices.deleteVehicleById(req.params.vehicleId!)
-          res.status(201).json({
+          res.status(200).json({
                success: true,
                message: "Vehicle deleted successfully"
           })

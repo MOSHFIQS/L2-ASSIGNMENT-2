@@ -9,7 +9,10 @@ const signupUser = async (payload: Record<string, unknown>) => {
      const lowercaseEmail = (email as string).toLowerCase() 
      const hashedPass = await bcrypt.hash(password as string, 10)
      const result = await pool.query(`INSERT INTO users(name, email, password, phone, role) VALUES($1, $2, $3, $4, $5) RETURNING *`, [name, lowercaseEmail, hashedPass, phone, role])
-     return result
+    
+     const user = result.rows[0]
+     delete user.password
+     return user
 }
 
 const signinUser = async (payload: Record<string, unknown>) => {
@@ -25,7 +28,6 @@ const signinUser = async (payload: Record<string, unknown>) => {
      if (!match) {
           return false
      }
-     // delete the password from the response
      delete user.password;
 
      const token = jwt.sign({ name: user.name, email: user.email, role: user.role }, config.jwtSecret as string, { expiresIn: "7d" })

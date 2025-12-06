@@ -2,6 +2,7 @@ import express, { Request, Response } from "express"
 import initDB from "./config/db"
 import { authRoutes } from "./modules/auth/auth.route"
 import { vehicleRoutes } from "./modules/vehicle/vehicle.route"
+import { userRoutes } from "./modules/user/user.route"
 
 
 const app = express()
@@ -16,7 +17,7 @@ app.get('/', (req: Request, res: Response) => {
 
 app.use('/api/v1/auth', authRoutes)
 app.use('/api/v1/vehicles', vehicleRoutes)
-// app.use('/api/v1/users', authRoutes)
+app.use('/api/v1/users', userRoutes)
 // app.use('/api/v1/bookings', authRoutes)
 
 app.use((req:Request, res:Response) => {

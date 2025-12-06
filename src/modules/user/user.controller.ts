@@ -20,6 +20,19 @@ const getAllUser = async (req: Request, res: Response) => {
 
 const updateUserById = async (req: Request, res: Response) => {
      try {
+          if (!req.user) {
+               return res.status(401).json({
+                    success: false,
+                    message: "Unauthorized access"
+               })
+          }
+          console.log(typeof(req.user.id));
+          if (req.user.id !== Number(req.params.userId) && req.user.role !== "admin") {
+               return res.status(403).json({
+                    success: false,
+                    message: "You can't update others data"
+               })
+          }
           const result = await userServices.updateUserById(req.body, req.params.userId!)
           res.status(200).json({
                success: true,

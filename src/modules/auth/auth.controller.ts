@@ -13,7 +13,7 @@ const signupUser = async (req: Request, res: Response) => {
           // } else {
                res.status(201).json({
                     success: true,
-                    message: "signup successfull",
+                    message: "User registered successfully",
                     data: result.rows[0]
                })
           // }
@@ -28,16 +28,17 @@ const signupUser = async (req: Request, res: Response) => {
 const signinUser = async (req: Request, res: Response) => {
      try {
           const result = await authServices.signinUser(req.body)
+
           if (!result) {
                res.status(404).json({
                     success: false,
-                    message: "login unsuccessfull",
+                    message: "Login unsuccessfull",
                })
           } else {
                res.status(201).json({
                     success: true,
-                    message: "signin successfull",
-                    data: result.rows[0]
+                    message: "Login successful",
+                    data: result
                })
           }
      } catch (err: any) {

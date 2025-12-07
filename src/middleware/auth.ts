@@ -13,7 +13,6 @@ const auth = (...roles: string[]) => {
                const token  = bearerToken.split(' ')[1]
 
                const decoded = jwt.verify(token as string, config.jwtSecret as string) as JwtPayload
-               console.log(decoded);
 
                req.user = decoded
 

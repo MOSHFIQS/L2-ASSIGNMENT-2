@@ -4,12 +4,8 @@ import { bookingServices } from "./booking.service"
 
 const getAllBookings = async (req: Request, res: Response) => {
      try {
-          const result = await bookingServices.getAllBookings()
-          res.status(200).json({
-               success: true,
-               message: "Users retrieved successfully",
-               data: result
-          })
+          const result = await bookingServices.getAllBookings(req.user!)
+          res.status(200).json(result)
      } catch (err: any) {
           res.status(500).json({
                success: false,
@@ -36,11 +32,8 @@ const createBooking = async (req: Request, res: Response) => {
 }
 const updateBooking = async (req: Request, res: Response) => {
      try {
-          await bookingServices.updateBooking(req.body)
-          res.status(200).json({
-               success: true,
-               message: "User deleted successfully"
-          })
+          const result =  await bookingServices.updateBooking(req.params.bookingId!, req.body, req.user!)
+          res.status(200).json(result)
      } catch (err: any) {
           res.status(500).json({
                success: false,

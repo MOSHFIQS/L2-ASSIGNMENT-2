@@ -26,7 +26,6 @@ const updateUserById = async (req: Request, res: Response) => {
                     message: "Unauthorized access"
                })
           }
-          console.log(typeof(req.user.id));
           if (req.user.id !== Number(req.params.userId) && req.user.role !== "admin") {
                return res.status(403).json({
                     success: false,

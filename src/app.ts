@@ -5,6 +5,8 @@ import { vehicleRoutes } from "./modules/vehicle/vehicle.route"
 import { userRoutes } from "./modules/user/user.route"
 import { bookingRoutes } from "./modules/booking/booking.route"
 
+// for autoReturnService
+import "./jobs/autoReturnService"; 
 
 const app = express()
 initDB()

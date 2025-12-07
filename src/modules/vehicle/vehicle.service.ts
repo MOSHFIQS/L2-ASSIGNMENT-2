@@ -25,6 +25,11 @@ const updateVehicleById = async (payload: Record<string, unknown>, vehicleId: st
 }
 
 const deleteVehicleById = async (vehicleId: string) => {
+     const getVehicleById = await pool.query(`SELECT * FROM vehicles WHERE id = $1`, [vehicleId])
+     const currentVehicle = getVehicleById.rows[0]
+     if (currentVehicle.availability_status !== "available") {
+          throw new Error("Vehicle cannot be deleted while booked");
+     }
      const result = await pool.query(`DELETE  FROM vehicles WHERE id = $1`, [vehicleId])
      return result
 }

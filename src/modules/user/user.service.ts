@@ -20,6 +20,11 @@ const updateUserById = async (payload: Record<string, unknown>, userId: string) 
 }
 
 const deleteUserById = async (userId: string) => {
+     const getActiveBooking = await pool.query(`SELECT * FROM bookings WHERE customer_id = $1 AND status='active'`, [userId])
+
+     if (getActiveBooking.rows[0]){
+          throw new Error("this user already booked a vehicle")
+     }
      const result = await pool.query(`DELETE  FROM users WHERE id = $1`, [userId])
      return result
 }

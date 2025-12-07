@@ -7,7 +7,7 @@ const autoReturnBookings = async () => {
      try {
           const result = await pool.query(`
             SELECT * FROM bookings
-            WHERE status = 'active' AND rent_end_date::date <= NOW()
+            WHERE status = 'active' AND rent_end_date <= NOW()
         `);
 
           for (const booking of result.rows) {

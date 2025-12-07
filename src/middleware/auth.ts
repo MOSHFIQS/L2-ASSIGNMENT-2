@@ -18,7 +18,7 @@ const auth = (...roles: string[]) => {
 
                if (roles.length && !roles.includes(decoded.role as string)) {
                     return res.status(403).json({
-                         error: "You do not access to retrived that data"
+                         error: "You do not access to do this"
                     })
                }
                next()

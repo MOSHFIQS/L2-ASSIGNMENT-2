@@ -7,8 +7,11 @@ const getAllUser = async () => {
 }
 
 const updateUserById = async (payload: Record<string, unknown>, userId: string) => {
-     const vehicle = await pool.query(`SELECT * FROM users WHERE id = $1`, [userId])
-     const currentUser = vehicle.rows[0]
+     const user = await pool.query(`SELECT * FROM users WHERE id = $1`, [userId])
+     const currentUser = user.rows[0]
+     if(!currentUser){
+          throw new Error("User Not Found")
+     }
 
      const { name, email, phone, role } = payload
      const result = await pool.query(`UPDATE users SET name=$1, email=$2, phone=$3, role=$4 WHERE id=$5 RETURNING *`, [name || currentUser.name, email || currentUser.email, phone || currentUser.phone, role || currentUser.role, userId])
